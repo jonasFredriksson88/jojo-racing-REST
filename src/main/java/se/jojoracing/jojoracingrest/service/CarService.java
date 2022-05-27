@@ -30,7 +30,7 @@ public class CarService {
         return carRepository.findByName(name).orElseThrow(); // TODO
     }
 
-    public List<Car> getAllUsers() {
+    public List<Car> getAll() {
         return (List<Car>) carRepository.findAll();
     }
 

@@ -26,7 +26,7 @@ public class LapService {
         return lapRepository.findById(id).orElseThrow(); // TODO
     }
 
-    public List<Lap> getAllUsers() {
+    public List<Lap> getAll() {
         return (List<Lap>) lapRepository.findAll();
     }
 

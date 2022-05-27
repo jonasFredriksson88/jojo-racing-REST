@@ -29,7 +29,7 @@ public class RaceService {
         return raceRepository.findByName(name).orElseThrow(); // TODO
     }
 
-    public List<Race> getAllUsers() {
+    public List<Race> getAll() {
         return (List<Race>) raceRepository.findAll();
     }
 
