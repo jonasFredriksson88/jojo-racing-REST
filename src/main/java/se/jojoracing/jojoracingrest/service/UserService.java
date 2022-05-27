@@ -30,7 +30,7 @@ public class UserService {
         return userRepository.findByName(name).orElseThrow(); // TODO
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getAll() {
         return (List<User>) userRepository.findAll();
     }
 
