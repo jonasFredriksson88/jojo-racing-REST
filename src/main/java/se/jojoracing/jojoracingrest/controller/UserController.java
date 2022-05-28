@@ -3,9 +3,11 @@ package se.jojoracing.jojoracingrest.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.jojoracing.jojoracingrest.entity.Race;
 import se.jojoracing.jojoracingrest.entity.User;
 import se.jojoracing.jojoracingrest.service.UserService;
 
+import javax.persistence.NamedQuery;
 import java.util.List;
 
 @RestController
@@ -30,8 +32,8 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("{name}")
-    public ResponseEntity<User> findById(@PathVariable String name) {
+    @GetMapping("custom")
+    public ResponseEntity<User> findCustom(@RequestParam String name) {
         User user = userService.findByName(name);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -40,6 +42,12 @@ public class UserController {
     public ResponseEntity<List<User>> getAll() {
         List<User> users = userService.getAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @PatchMapping("{userId}/cars/{carId}/add")
+    public ResponseEntity<User> addCar(@PathVariable Long userId, @PathVariable Long carId) {
+        User user = userService.addCar(userId, carId);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")

@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.jojoracing.jojoracingrest.entity.Car;
+import se.jojoracing.jojoracingrest.entity.User;
 import se.jojoracing.jojoracingrest.service.CarService;
 
 import java.util.List;
@@ -30,16 +31,16 @@ public class CarController {
         return new ResponseEntity<>(car, HttpStatus.OK);
     }
 
-    @GetMapping("{name}")
-    public ResponseEntity<Car> findById(@PathVariable String name) {
-        Car car = carService.findByName(name);
-        return new ResponseEntity<>(car, HttpStatus.OK);
+    @GetMapping("custom")
+    public ResponseEntity<Car> findCustom(@RequestParam String name) {
+        Car user = carService.findByName(name);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<Car>> getAll() {
-        List<Car> users = carService.getAll();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        List<Car> cars = carService.getAll();
+        return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")

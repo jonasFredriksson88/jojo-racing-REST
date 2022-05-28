@@ -3,6 +3,7 @@ package se.jojoracing.jojoracingrest.service;
 import org.springframework.stereotype.Service;
 import se.jojoracing.jojoracingrest.entity.Car;
 import se.jojoracing.jojoracingrest.entity.Lap;
+import se.jojoracing.jojoracingrest.entity.User;
 import se.jojoracing.jojoracingrest.repository.LapRepository;
 
 import javax.transaction.Transactional;
@@ -18,8 +19,8 @@ public class LapService {
         this.lapRepository = lapRepository;
     }
 
-    public Lap create(Lap car) {
-        return lapRepository.save(car);
+    public Lap create(Lap lap) {
+        return lapRepository.save(lap);
     }
 
     public Lap findById(Long id) {

@@ -3,7 +3,10 @@ package se.jojoracing.jojoracingrest.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,11 +17,12 @@ public class Race {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
+    private int laps;
 
-    @OneToMany
-    private Set<Lap> laps = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Record> records = new HashSet<>();
 
-    @ManyToMany
-    private Set<User> users = new HashSet<>();
-
+    public void addRecord(Record record) {
+        this.records.add(record);
+    }
 }
