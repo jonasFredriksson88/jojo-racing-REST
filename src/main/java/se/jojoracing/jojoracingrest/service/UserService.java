@@ -1,7 +1,8 @@
 package se.jojoracing.jojoracingrest.service;
 
-import org.apache.coyote.Response;
 import org.springframework.stereotype.Service;
+import se.jojoracing.jojoracingrest.entity.Car;
+import se.jojoracing.jojoracingrest.entity.Lap;
 import se.jojoracing.jojoracingrest.entity.User;
 import se.jojoracing.jojoracingrest.repository.UserRepository;
 
@@ -13,9 +14,12 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final CarService carService;
 
-    public UserService(UserRepository userRepository) {
+
+    public UserService(UserRepository userRepository, CarService carService) {
         this.userRepository = userRepository;
+        this.carService = carService;
     }
 
     public User create(User user) {
@@ -39,4 +43,11 @@ public class UserService {
         userRepository.delete(user);
     }
 
+    public User addCar(Long userId, Long carId) {
+        User user = findById(userId);
+        Car car = carService.findById(carId);
+        user.addCar(car);
+
+        return user;
+    }
 }

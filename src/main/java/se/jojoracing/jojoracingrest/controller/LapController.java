@@ -18,12 +18,6 @@ public class LapController {
         this.lapService = lapService;
     }
 
-    @PostMapping
-    public ResponseEntity<Lap> create(@RequestBody Lap lap) {
-        Lap createdLap = lapService.create(lap);
-        return new ResponseEntity<>(createdLap, HttpStatus.CREATED);
-    }
-
     @GetMapping("{id}")
     public ResponseEntity<Lap> findById(@PathVariable Long id) {
         Lap lap = lapService.findById(id);
@@ -35,11 +29,4 @@ public class LapController {
         List<Lap> laps = lapService.getAll();
         return new ResponseEntity<>(laps, HttpStatus.OK);
     }
-
-    @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        lapService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
 }

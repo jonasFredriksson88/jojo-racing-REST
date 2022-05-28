@@ -1,9 +1,12 @@
 package se.jojoracing.jojoracingrest.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 @Entity
 @Data
@@ -13,11 +16,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
+    private Time bestLap;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<Car> cars = new HashSet<>();
+    @ManyToOne
+    private Car car;
 
-    @ManyToMany
-    private Set<Race> races = new HashSet<>();
-
+    public void addCar(Car car) {
+        this.car = car;
+    }
 }
