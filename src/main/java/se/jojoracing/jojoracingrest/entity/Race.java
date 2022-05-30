@@ -1,16 +1,15 @@
 package se.jojoracing.jojoracingrest.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Race {
 
     @Id
@@ -19,10 +18,12 @@ public class Race {
     private String name;
     private int laps;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<Record> records = new HashSet<>();
+    @OneToMany(mappedBy = "race",cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Result> results = new HashSet<>();
 
-    public void addRecord(Record record) {
-        this.records.add(record);
+    public void addRecord(Result result) {
+        this.results.add(result);
+        result.setRace(this);
     }
+
 }

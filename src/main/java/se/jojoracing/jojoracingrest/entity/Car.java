@@ -2,11 +2,14 @@ package se.jojoracing.jojoracingrest.entity;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Car {
 
     @Id
@@ -18,9 +21,5 @@ public class Car {
     @NotNull
     @Column(unique = true)
     private String imgUrl;
-
-    public Car() {
-
-    }
 
 }

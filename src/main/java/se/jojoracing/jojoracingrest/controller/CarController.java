@@ -33,8 +33,8 @@ public class CarController {
 
     @GetMapping("custom")
     public ResponseEntity<Car> findCustom(@RequestParam String name) {
-        Car user = carService.findByName(name);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        Car car = carService.findByName(name);
+        return new ResponseEntity<>(car, HttpStatus.OK);
     }
 
     @GetMapping
