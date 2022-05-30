@@ -2,23 +2,25 @@ package se.jojoracing.jojoracingrest.service;
 
 import org.springframework.stereotype.Service;
 import se.jojoracing.jojoracingrest.entity.Race;
-import se.jojoracing.jojoracingrest.entity.Record;
+import se.jojoracing.jojoracingrest.entity.Result;
+import se.jojoracing.jojoracingrest.entity.User;
 import se.jojoracing.jojoracingrest.repository.RaceRepository;
+import se.jojoracing.jojoracingrest.repository.UserRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 @Transactional
-public class RaceService {
+public class RaceService{
 
     private final RaceRepository raceRepository;
-    private final RecordService recordService;
+    private final UserRepository userRepository;
 
 
-    public RaceService(RaceRepository raceRepository, RecordService recordService) {
+    public RaceService(RaceRepository raceRepository, UserRepository userRepository) {
         this.raceRepository = raceRepository;
-        this.recordService = recordService;
+        this.userRepository = userRepository;
     }
 
     public Race create(Race race) {
@@ -30,7 +32,7 @@ public class RaceService {
     }
 
     public Race findByName(String name) {
-        return raceRepository.findByName(name).orElseThrow(); // TODO
+        return raceRepository.findByNameIgnoreCase(name).orElseThrow(); // TODO
     }
 
     public List<Race> getAll() {
@@ -44,9 +46,16 @@ public class RaceService {
 
     public Race addUser(Long raceId, Long userId) {
         Race race = findById(raceId);
-        Record record = recordService.create(race, userId);
-        race.addRecord(record);
+        User user = userRepository.findById(userId).orElseThrow();
+        Result result = new Result();
+        result.createLaps(race.getLaps());
+        race.addRecord(result);
+        user.addRecord(result);
+        return race;
+    }
 
+    public Race removeUser(Long raceId, Long userId) {
+        Race race = findById(raceId);
         return race;
     }
 }

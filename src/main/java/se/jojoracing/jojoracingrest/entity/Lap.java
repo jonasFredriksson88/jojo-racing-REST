@@ -2,6 +2,7 @@ package se.jojoracing.jojoracingrest.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -9,6 +10,7 @@ import java.util.Set;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Lap {
 
     @Id
@@ -17,11 +19,8 @@ public class Lap {
     private int lap;
     private long lapTime;
 
-    public Lap() {
-
-    }
-
     public Lap(int lap) {
         this.lap = lap;
     }
+
 }

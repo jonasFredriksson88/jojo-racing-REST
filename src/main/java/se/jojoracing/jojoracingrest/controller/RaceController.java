@@ -36,19 +36,25 @@ public class RaceController {
 
     @GetMapping("custom")
     public ResponseEntity<Race> findCustom(@RequestParam String name) {
-        Race user = raceService.findByName(name);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        Race race = raceService.findByName(name);
+        return new ResponseEntity<>(race, HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<Race>> getAll() {
-        List<Race> laps = raceService.getAll();
-        return new ResponseEntity<>(laps, HttpStatus.OK);
+        List<Race> races = raceService.getAll();
+        return new ResponseEntity<>(races, HttpStatus.OK);
     }
 
     @PatchMapping("{raceId}/users/{userId}/add")
     public ResponseEntity<Race> addUser(@PathVariable Long raceId,@PathVariable Long userId) {
         Race race = raceService.addUser(raceId,userId);
+        return new ResponseEntity<>(race, HttpStatus.OK);
+    }
+
+    @PatchMapping("{raceId}/users/{userId}/remove")
+    public ResponseEntity<Race> removeUser(@PathVariable Long raceId,@PathVariable Long userId) {
+        Race race = raceService.removeUser(raceId,userId);
         return new ResponseEntity<>(race, HttpStatus.OK);
     }
 

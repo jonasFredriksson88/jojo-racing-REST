@@ -2,7 +2,6 @@ package se.jojoracing.jojoracingrest.service;
 
 import org.springframework.stereotype.Service;
 import se.jojoracing.jojoracingrest.entity.Car;
-import se.jojoracing.jojoracingrest.entity.Lap;
 import se.jojoracing.jojoracingrest.entity.User;
 import se.jojoracing.jojoracingrest.repository.UserRepository;
 
@@ -31,7 +30,7 @@ public class UserService {
     }
 
     public User findByName(String name) {
-        return userRepository.findByName(name).orElseThrow(); // TODO
+        return userRepository.findByNameIgnoreCase(name).orElseThrow(); // TODO
     }
 
     public List<User> getAll() {
@@ -47,7 +46,6 @@ public class UserService {
         User user = findById(userId);
         Car car = carService.findById(carId);
         user.addCar(car);
-
         return user;
     }
 }

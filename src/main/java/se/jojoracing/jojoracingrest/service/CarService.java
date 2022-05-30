@@ -2,7 +2,6 @@ package se.jojoracing.jojoracingrest.service;
 
 import org.springframework.stereotype.Service;
 import se.jojoracing.jojoracingrest.entity.Car;
-import se.jojoracing.jojoracingrest.entity.User;
 import se.jojoracing.jojoracingrest.repository.CarRepository;
 
 import javax.transaction.Transactional;
@@ -27,7 +26,7 @@ public class CarService {
     }
 
     public Car findByName(String name) {
-        return carRepository.findByName(name).orElseThrow(); // TODO
+        return carRepository.findByNameIgnoreCase(name).orElseThrow(); // TODO
     }
 
     public List<Car> getAll() {

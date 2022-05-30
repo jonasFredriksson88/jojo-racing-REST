@@ -1,7 +1,8 @@
 package se.jojoracing.jojoracingrest.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Time;
@@ -9,8 +10,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
-public class Record {
+@Getter
+@Setter
+public class Result {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,19 +20,15 @@ public class Record {
     private Time startTime;
     private Time finishTime;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
+    @JsonIgnore
+    private Race race;
+
+    @ManyToOne
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Lap> laps = new HashSet<>();
-
-    public void addUser(User user) {
-        this.user = user;
-    }
-
-    public void removeUser(User user) {
-        this.user = null;
-    }
 
     public void createLaps(int laps) {
         for (int i = 1; i <= laps; i++) {
