@@ -6,8 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Time;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,11 +28,15 @@ public class Result {
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<Lap> laps = new HashSet<>();
+    private List<Lap> laps = new ArrayList<>();
 
     public void createLaps(int laps) {
         for (int i = 1; i <= laps; i++) {
             this.laps.add(new Lap(i));
         }
+    }
+
+    public List<Lap> getLaps() {
+        return laps.stream().sorted(Lap::compareTo).toList();
     }
 }

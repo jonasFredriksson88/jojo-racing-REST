@@ -3,12 +3,13 @@ package se.jojoracing.jojoracingrest.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import se.jojoracing.jojoracingrest.entity.Race;
-import se.jojoracing.jojoracingrest.entity.User;
+import se.jojoracing.jojoracingrest.dto.UserDTO;
 import se.jojoracing.jojoracingrest.service.UserService;
 
-import javax.persistence.NamedQuery;
 import java.util.List;
+
+import static se.jojoracing.jojoracingrest.utility.EntityMapper.userToDTO;
+import static se.jojoracing.jojoracingrest.utility.EntityMapper.userToEntity;
 
 @RestController
 @RequestMapping("users")
@@ -21,32 +22,32 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> create(@RequestBody User user) {
-        User createdUser = userService.create(user);
+    public ResponseEntity<UserDTO> create(@RequestBody UserDTO user) {
+        UserDTO createdUser = userToDTO(userService.create(userToEntity(user)));
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<User> findById(@PathVariable Long id) {
-        User user = userService.findById(id);
+    public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
+        UserDTO user = userToDTO(userService.findById(id));
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping("custom")
-    public ResponseEntity<User> findCustom(@RequestParam String name) {
-        User user = userService.findByName(name);
+    public ResponseEntity<UserDTO> findCustom(@RequestParam String name) {
+        UserDTO user = userToDTO(userService.findByName(name));
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAll() {
-        List<User> users = userService.getAll();
+    public ResponseEntity<List<UserDTO>> getAll() {
+        List<UserDTO> users = userToDTO(userService.getAll());
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @PatchMapping("{userId}/cars/{carId}/add")
-    public ResponseEntity<User> addCar(@PathVariable Long userId, @PathVariable Long carId) {
-        User user = userService.addCar(userId, carId);
+    public ResponseEntity<UserDTO> addCar(@PathVariable Long userId, @PathVariable Long carId) {
+        UserDTO user = userToDTO(userService.addCar(userId, carId));
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
